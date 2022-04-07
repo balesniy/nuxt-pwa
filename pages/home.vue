@@ -1,11 +1,21 @@
 <template>
   <div class="page">
     <header class="page-header">
-      <div>
+      <div class="page-header__today">
         <p>Oggi</p>
         <p class="today">
           {{ today }}
         </p>
+      </div>
+      <div class="page-header__menu">
+        <input id="nav-menu1" v-model="sidebarVisible" type="checkbox">
+        <label id="nav-icon1" for="nav-menu1">
+          <svg>
+            <line x1="20%" y1="50%" x2="80%" y2="50%" />
+            <line x1="20%" y1="50%" x2="80%" y2="50%" />
+            <line x1="20%" y1="50%" x2="80%" y2="50%" />
+          </svg>
+        </label>
       </div>
       <nuxt-link class="user-link" to="/user">
         <img src="~assets/img/user-icon.svg" alt="user">
@@ -20,6 +30,19 @@
       </label> -->
     </header>
     <main class="home">
+      <div class="sidebar">
+        <div class="drawer">
+          <input id="my-drawer" v-model="sidebarVisible" type="checkbox" class="drawer-toggle">
+          <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay" />
+            <ul class="menu">
+              <!-- Sidebar content here -->
+              <li><a>Sidebar Item 1</a></li>
+              <li><a>Sidebar Item 2</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <DaysList ref="days" v-model="selectedDay" :days="days" />
       <EventsList
         v-model="selectedDay"
@@ -43,6 +66,7 @@ export default {
   auth: false, // FIXME dev only
   data () {
     return {
+      sidebarVisible: false,
       days: eachDayOfInterval({
         start: new Date(),
         end: add(new Date(), { months: 1 })
