@@ -7,7 +7,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nuxt-pwa',
+    titleTemplate: '%s | Circolo App',
+    title: 'page',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -47,8 +48,29 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth-next',
+    ['nuxt-supabase', {
+      supabaseUrl: 'https://pxwlafrbvcetzwukdouy.supabase.co',
+      supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTkwODY1MSwiZXhwIjoxOTU1NDg0NjUxfQ.k8iTru6so8febdNeYnzqP4Yf4RpUp8wFNvHTisf-wV8'
+    }]
   ],
+
+  auth: {
+    strategies: {
+      supabase: { scheme: '~/schemes/supabase' }
+    },
+    redirect: {
+      login: '/signin', // if login is required
+      logout: '/signin', //  if after logout, current route is protected
+      callback: '/signin', // identity provider after login
+      home: '/home' // after login
+    }
+  },
+
+  router: {
+    middleware: ['auth']
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -59,7 +81,10 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'it',
+      name: 'Circolo Le Grazie',
+      short_name: 'Circolo',
+      description: 'Un posto dove riunirli tutti'
     }
   },
 

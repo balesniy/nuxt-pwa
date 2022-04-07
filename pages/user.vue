@@ -5,8 +5,8 @@
         <div class="user-avatar">
           <img src="https://api.lorem.space/image/face?hash=8877" alt="Tailwind-CSS-Avatar-component">
         </div>
-        <h1>Edit profile</h1>
-        <p>and save your schedule neatly.</p>
+        <h1>Modifica Profilo</h1>
+        <p>e salva il tuo programma in modo ordinato.</p>
       </div>
       <form @submit.prevent class="user-form">
         <div class="input-group">
@@ -29,9 +29,9 @@
         </button>
       </form>
       <p class="divider">
-        or
+        oppure
       </p>
-      <nuxt-link class="btn btn-full" to="/signin">Logout</nuxt-link>
+      <button class="btn btn-full" @click="$auth.logout()">Logout</button>
     </main>
     <footer class="page-footer">
       <button class="footer-toggle" type="button" />

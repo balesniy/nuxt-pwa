@@ -1,5 +1,5 @@
 <template>
-  <li class="event" :data-index="index">
+  <li class="event" :data-index="index" @click="$emit('click')">
     <time datetime="20:00">{{ formatInterval(event) }}</time>
     <div class="event-card">
       <h3 class="event-title">

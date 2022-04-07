@@ -2,12 +2,13 @@
   <section class="events">
     <ul ref="events-list" class="events-list">
       <event-item
-        v-for="(event, i) of events"
+        v-for="(ev, i) of events"
         :key="i"
         :ref="`event-${i}`"
-        :event="event"
+        :event="ev"
         :index="i"
         :observer="observer"
+        @click="$emit('click', ev)"
       />
       <li class="event event--alert">
         <time datetime="20:00">7AM - 8PM</time>

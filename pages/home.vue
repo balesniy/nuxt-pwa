@@ -2,7 +2,7 @@
   <div class="page">
     <header class="page-header">
       <div>
-        <p>Today</p>
+        <p>Oggi</p>
         <p class="today">
           {{ today }}
         </p>
@@ -21,7 +21,12 @@
     </header>
     <main class="home">
       <DaysList ref="days" v-model="selectedDay" :days="days" />
-      <EventsList v-model="selectedDay" :events-by-days="events" @visible="handleEventsScroll" />
+      <EventsList
+        v-model="selectedDay"
+        :events-by-days="events"
+        @visible="handleEventsScroll"
+        @click="handleEventClick"
+      />
     </main>
     <footer class="page-footer">
       <button class="footer-toggle" type="button" />
@@ -34,13 +39,17 @@ import { it } from 'date-fns/locale'
 
 export default {
   name: 'HomePage',
+  auth: false, // FIXME dev only
   data () {
     return {
       days: eachDayOfInterval({
         start: new Date(),
         end: add(new Date(), { months: 1 })
       }),
-      selectedDay: 0
+      selectedDay: 0,
+      loaded: false,
+      loadedEvents: [],
+      error: null
     }
   },
   computed: {
@@ -59,7 +68,7 @@ export default {
           })
         }
 
-        if (!isWeekend) {
+        if (!isWeekend(day)) {
           slots.push({
             title: 'Aperto come al solito',
             description: 'Bevande e cocktail nazionali e importati.',
@@ -89,10 +98,51 @@ export default {
       })
     }
   },
+  async created () {
+    // get events
+    const {
+      data: events,
+      error
+    } = await this.$supabase
+      .from('events')
+      .select('*, profiles (username)')
+    this.loadedEvents = events
+    this.error = error
+    this.loaded = true
+    // subscribe
+    this.evSubscription = this.$supabase
+      .from('events_users')
+      .on('*', ({ new: { event_id: evId, user_id: userId } }) => {
+        console.log('Change received!', { evId, userId })
+      })
+      .subscribe()
+  },
+  beforeDestroy () {
+    this.$supabase.removeSubscription(this.evSubscription)
+  },
   methods: {
     handleEventsScroll (ev) {
       const index = closestIndexTo(ev.start, this.days)
       this.$refs.days.scrollToIndex(index)
+    },
+    handleEventClick (ev) {
+      this.addUserToEvent(ev)
+    },
+    async addUserToEvent (ev) {
+      const user = this.$supabase.auth.user()
+      const { data: { id }, error: evError } = await this.$supabase
+        .from('events')
+        .insert([ev])
+        .single()
+      console.log({ evError })
+
+      const { error: userError } = await this.$supabase
+        .from('events_users')
+        .insert([
+          { event_id: id, user_id: user.id }
+        ])
+        .single()
+      console.log({ userError })
     }
   }
 }
