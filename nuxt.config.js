@@ -85,6 +85,9 @@ export default {
       name: 'Circolo Le Grazie',
       short_name: 'Circolo',
       description: 'Un posto dove riunirli tutti'
+    },
+    meta: {
+      mobileAppIOS: true
     }
   },
 

@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+import AddToHomeScreen from 'a2hs.js'
 import { format, eachDayOfInterval, add, isSunday, isWeekend, setHours, setMinutes, closestIndexTo } from 'date-fns'
 import { it } from 'date-fns/locale'
 
@@ -116,6 +117,11 @@ export default {
         console.log('Change received!', { evId, userId })
       })
       .subscribe()
+  },
+  mounted () {
+    AddToHomeScreen({
+      brandName: 'Circolo'
+    })
   },
   beforeDestroy () {
     this.$supabase.removeSubscription(this.evSubscription)
