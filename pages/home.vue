@@ -20,36 +20,28 @@
       <nuxt-link class="user-link" to="/user">
         <img src="~assets/img/user-icon.svg" alt="user">
       </nuxt-link>
-      <!-- <input type="checkbox" id="nav-menu1">
-      <label id="nav-icon1" for="nav-menu1">
-        <svg>
-          <line x1="20%" y1="50%" x2="80%" y2="50%"/>
-           <line x1="20%" y1="50%" x2="80%" y2="50%"/>
-           <line x1="20%" y1="50%" x2="80%" y2="50%"/>
-        </svg>
-      </label> -->
     </header>
-    <main class="home">
-      <div class="sidebar">
-        <div class="drawer">
-          <input id="my-drawer" v-model="sidebarVisible" type="checkbox" class="drawer-toggle">
-          <div class="drawer-side">
-            <label for="my-drawer" class="drawer-overlay" />
-            <ul class="menu">
-              <!-- Sidebar content here -->
-              <li><a>Sidebar Item 1</a></li>
-              <li><a>Sidebar Item 2</a></li>
-            </ul>
-          </div>
+    <main>
+      <div class="drawer">
+        <input id="my-drawer" v-model="sidebarVisible" type="checkbox" class="drawer-toggle">
+        <div class="drawer-content home">
+          <DaysList ref="days" v-model="selectedDay" :days="days" />
+          <EventsList
+            v-model="selectedDay"
+            :events-by-days="events"
+            @visible="handleEventsScroll"
+            @click="handleEventClick"
+          />
+        </div>
+        <div class="drawer-side">
+          <label for="my-drawer" class="drawer-overlay" />
+          <ul class="menu">
+            <!-- Sidebar content here -->
+            <li><a>Sidebar Item 1</a></li>
+            <li><a>Sidebar Item 2</a></li>
+          </ul>
         </div>
       </div>
-      <DaysList ref="days" v-model="selectedDay" :days="days" />
-      <EventsList
-        v-model="selectedDay"
-        :events-by-days="events"
-        @visible="handleEventsScroll"
-        @click="handleEventClick"
-      />
     </main>
     <footer class="page-footer">
       <button class="footer-toggle" type="button" />
