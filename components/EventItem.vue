@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     members () {
-      return this.event.members.slice(0, 9)
+      return this.event.members.slice(0, 7)
     },
     hiddenMembers () {
       return this.event.members.length - this.members.length
