@@ -74,10 +74,12 @@ export default {
     today () {
       return format(new Date(), 'EEEE, d MMMM', { locale: it })
     },
-    status () {
-      return ['', '', 'info', 'alert', 'warning', 'empty', 'empty']
-    },
     initialEvents () {
+      const getMember = () => ({
+        name: 'Some name',
+        src: `https://api.lorem.space/image/face?hash=${Math.floor(Math.random() * 10000)}`,
+        haveKey: Math.random() < 0.2
+      })
       return this.days.map((day) => {
         const slots = []
         if (isSunday(day)) {
@@ -86,7 +88,7 @@ export default {
             description: 'Caffe, pasta, schiacciata.',
             start: setHours(day, 9),
             end: setHours(day, 12),
-            status: this.status[Math.floor(Math.random() * this.status.length)]
+            members: Array.from({ length: Math.floor(Math.random() * 7) }).map(getMember)
           })
         }
 
@@ -96,7 +98,7 @@ export default {
             description: 'Bevande e cocktail nazionali e importati.',
             start: setHours(day, 15),
             end: setHours(day, 20),
-            status: this.status[Math.floor(Math.random() * this.status.length)]
+            members: Array.from({ length: Math.floor(Math.random() * 15) }).map(getMember)
           })
         } else {
           slots.push({
@@ -104,7 +106,7 @@ export default {
             description: 'Apriremo se c`è chi è interessato.',
             start: setHours(day, 17),
             end: setHours(day, 20),
-            status: this.status[Math.floor(Math.random() * this.status.length)]
+            members: Array.from({ length: Math.floor(Math.random() * 5) }).map(getMember)
           })
         }
 
@@ -113,7 +115,7 @@ export default {
           description: 'Bevande forti dopo cena.',
           start: setMinutes(setHours(day, 21), 30),
           end: setHours(day, 24),
-          status: this.status[Math.floor(Math.random() * this.status.length)]
+          members: Array.from({ length: Math.floor(Math.random() * 10) }).map(getMember)
         })
 
         return {
@@ -157,21 +159,17 @@ export default {
       const index = closestIndexTo(ev.start, this.days)
       this.$refs.days.scrollToIndex(index)
     },
-    getNextStatus ({ status }) {
-      switch (status) {
-        case 'alert':
-          return 'warning'
-        case 'warning':
-          return 'alert'
-        case 'info':
-          return ''
-        case 'empty':
-          return Math.random() > 0.5 ? 'alert' : 'info'
-      }
-      return 'info'
-    },
     handleEventClick (ev) {
-      ev.status = this.getNextStatus(ev)
+      if (ev.members.at(-1)?.name !== 'My name') {
+        ev.members.push({
+          name: 'My name',
+          src: 'https://api.lorem.space/image/face?hash=20000',
+          haveKey: Math.random() > 0.5
+        })
+      } else {
+        ev.members.splice(-1, 1)
+      }
+
       this.addUserToEvent(ev)
     },
     async addUserToEvent (ev) {

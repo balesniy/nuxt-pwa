@@ -1,5 +1,5 @@
 <template>
-  <li v-touch:touchhold="touchHoldHandler" class="event" :data-index="index">
+  <li v-touch:touchhold="touchHoldHandler" class="event" :class="`event--${evStatus}`" :data-index="index">
     <time datetime="20:00">{{ formatInterval(event) }}</time>
     <div class="event-card">
       <h3 class="event-title">
@@ -9,14 +9,11 @@
         {{ event.description }}
       </p>
       <ul class="event-members">
-        <li class="event-member">
-          <img src="https://api.lorem.space/image/face?hash=11722" alt="member" class="event-avatar">
+        <li v-for="({src}, i) of members" :key="i" class="event-member">
+          <img :src="src" alt="member" class="event-avatar">
         </li>
-        <li class="event-member">
-          <img src="https://api.lorem.space/image/face?hash=10579" alt="member" class="event-avatar">
-        </li>
-        <li class="event-member">
-          <img src="https://api.lorem.space/image/face?hash=20349" alt="member" class="event-avatar">
+        <li v-if="hiddenMembers" class="event-member placeholder">
+          <span>+{{ hiddenMembers }}</span>
         </li>
       </ul>
     </div>
@@ -35,6 +32,27 @@ export default {
       default: () => ({
         observe: () => {}
       })
+    }
+  },
+  computed: {
+    members () {
+      return this.event.members.slice(0, 9)
+    },
+    hiddenMembers () {
+      return this.event.members.length - this.members.length
+    },
+    isMyEvent () {
+      return this.event.members.some(({ name }) => name === 'My name')
+    },
+    evStatus () {
+      const isSomebodyHaveKey = this.event.members.some(({ haveKey }) => haveKey)
+      return this.event.members.length
+        ? (
+            isSomebodyHaveKey
+              ? (this.isMyEvent ? 'info' : '')
+              : (this.isMyEvent ? 'alert' : 'warning')
+          )
+        : 'empty'
     }
   },
   mounted () {

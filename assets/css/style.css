@@ -511,6 +511,7 @@ body {
   list-style: none;
 
   display: flex;
+  width: max-content;
 }
 
 .event-member {
@@ -524,7 +525,7 @@ body {
 }
 
 .event-members > :not([hidden]) ~ :not([hidden]) {
-  margin-left: -10px;
+  margin-left: clamp(-20px, -5%, -10px);
 }
 
 .event-member img {

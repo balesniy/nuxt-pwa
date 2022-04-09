@@ -8,78 +8,8 @@
         :event="ev"
         :index="i"
         :observer="observer"
-        :class="`event--${ev.status}`"
         @click="$emit('click', ev)"
       />
-      <li class="event event--alert">
-        <time datetime="20:00">7AM - 8PM</time>
-        <div class="event-card">
-          <h3 class="event-title">
-            Go to office
-          </h3>
-          <p class="event-description">
-            meeting with client
-          </p>
-          <ul class="event-members">
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=11722" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=75704" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=32456" alt="member" class="event-avatar">
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="event event--info">
-        <time datetime="20:00">7AM - 8PM</time>
-        <div class="event-card">
-          <h3 class="event-title">
-            Go to office
-          </h3>
-          <p class="event-description">
-            meeting with client
-          </p>
-          <ul class="event-members">
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=12867" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=12546" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=23197" alt="member" class="event-avatar">
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="event event--warning">
-        <time datetime="20:00">7AM - 8PM</time>
-        <div class="event-card">
-          <h3 class="event-title">
-            Go to office
-          </h3>
-          <p class="event-description">
-            meeting with client
-          </p>
-          <ul class="event-members">
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=10678" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=11722" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member">
-              <img src="https://api.lorem.space/image/face?hash=11555" alt="member" class="event-avatar">
-            </li>
-            <li class="event-member placeholder">
-              <span>+14</span>
-            </li>
-          </ul>
-        </div>
-      </li>
       <li class="event event--skeleton">
         <time datetime="20:00">7AM - 8PM</time>
         <div class="event-card loading">
