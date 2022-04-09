@@ -24,7 +24,7 @@
     <main>
       <div class="drawer">
         <input id="my-drawer" v-model="sidebarVisible" type="checkbox" class="drawer-toggle">
-        <div class="drawer-content home">
+        <div class="drawer-content home grid-bg">
           <DaysList ref="days" v-model="selectedDay" :days="days" />
           <EventsList
             v-model="selectedDay"

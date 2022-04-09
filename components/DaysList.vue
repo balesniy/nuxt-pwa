@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     formattedDays () {
-      return this.days.map(date => format(date, 'EEE d', { locale: it }).split(/\s/))
+      return this.days.map(date => format(date, 'EEEEE d', { locale: it }).split(/\s/))
     },
     calendarParams () {
       return {

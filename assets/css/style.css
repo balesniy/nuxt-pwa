@@ -361,7 +361,7 @@ body {
   list-style: none;
 
   display: flex;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
@@ -369,14 +369,16 @@ body {
 
 .days-item {
   background: #FFFFFF;
-  border: 1px solid #E8E8E8;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+  /* border: 1px solid #E8E8E8; */
+  /* box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1); */
   border-radius: 10px;
   color: #5B5B5B;
-  font-weight: 700;
-  width: 67px;
-  height: 93px;
-  padding: 16px;
+  font-weight: 500;
+  width: 40px;
+  height: 60px;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 18px;
   text-align: center;
   scroll-snap-align: start;
 }
@@ -384,11 +386,11 @@ body {
 .days-item.with-event::after {
   content: "";
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background:  var(--primary);
-  margin: 4px auto 0;
+  margin: 0 auto;
 }
 
 .days-item.active-day {
@@ -402,14 +404,12 @@ body {
 }
 
 .days-item .day {
-  font-size: 16px;
-  line-height: 22px;
   text-transform: uppercase;
 }
 
 .days-item .date {
-  font-size: 26px;
-  line-height: 35px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 /*
@@ -449,9 +449,19 @@ body {
   linear-gradient(to bottom left, #FC354C, #0ABFBC);
 }
 
-.home {
+.grid-bg {
   background: repeating-linear-gradient(-45deg, transparent, transparent 1em, rgba(127, 215, 245, 0.4) 0, rgba(127, 215, 245, 0.1) 2em, transparent 0, transparent 1em, rgba(127, 215, 245, 0.3) 0, rgba(127, 215, 245, 0.2) 4em, transparent 0, transparent 1em, rgba(192, 235, 250, 0.6) 0, rgba(192, 235, 250, 0.2) 2em), repeating-linear-gradient(45deg, transparent, transparent 1em, rgba(127, 215, 245, 0.4) 0, rgba(127, 215, 245, 0.1) 2em, transparent 0, transparent 1em, rgba(127, 215, 245, 0.3) 0, rgba(127, 215, 245, 0.2) 4em, transparent 0, transparent 1em, rgba(192, 235, 250, 0.4) 0, rgba(192, 235, 250, 0.1) 2em), #FFF;
   background-blend-mode: multiply;
+}
+
+.circle-grid {
+  --trans: transparent;
+  --sage:								#87A376;
+  --forest: 						#2E644A;
+  font-size: 4em;
+  background-color: var(--forest);
+  background-image: repeating-radial-gradient( circle at 0.5em 0.5em, var(--sage), var(--sage) 0.1em, var(--trans) 0.11em, var(--trans) 0.45em, var(--sage) 0.46em);
+  background-size: 1em 1em;
 }
 
 .events-list {
@@ -459,7 +469,7 @@ body {
   padding: 0;
   list-style: none;
 
-  height: calc(100vh - 76px - 121px);
+  height: calc(100vh - 76px - 76px);
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
 
