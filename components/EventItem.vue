@@ -1,5 +1,5 @@
 <template>
-  <li class="event" :data-index="index" @click="$emit('click')">
+  <li v-touch:touchhold="touchHoldHandler" class="event" :data-index="index">
     <time datetime="20:00">{{ formatInterval(event) }}</time>
     <div class="event-card">
       <h3 class="event-title">
@@ -42,6 +42,9 @@ export default {
     this.observer.observe(this.$el)
   },
   methods: {
+    touchHoldHandler () {
+      this.$emit('click')
+    },
     formatInterval ({ start, end }) {
       return `${format(start, 'EEE d', { locale: it })} ${format(start, 'H:mm')} - ${format(end, 'H:mm')}`
     }

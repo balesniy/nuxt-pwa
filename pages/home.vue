@@ -65,6 +65,7 @@ export default {
       }),
       selectedDay: 0,
       loaded: false,
+      events: [],
       loadedEvents: [],
       error: null
     }
@@ -73,7 +74,10 @@ export default {
     today () {
       return format(new Date(), 'EEEE, d MMMM', { locale: it })
     },
-    events () {
+    status () {
+      return ['', '', 'info', 'alert', 'warning', 'empty', 'empty']
+    },
+    initialEvents () {
       return this.days.map((day) => {
         const slots = []
         if (isSunday(day)) {
@@ -81,7 +85,8 @@ export default {
             title: 'Colazione italiano',
             description: 'Caffe, pasta, schiacciata.',
             start: setHours(day, 9),
-            end: setHours(day, 12)
+            end: setHours(day, 12),
+            status: this.status[Math.floor(Math.random() * this.status.length)]
           })
         }
 
@@ -90,14 +95,16 @@ export default {
             title: 'Aperto come al solito',
             description: 'Bevande e cocktail nazionali e importati.',
             start: setHours(day, 15),
-            end: setHours(day, 20)
+            end: setHours(day, 20),
+            status: this.status[Math.floor(Math.random() * this.status.length)]
           })
         } else {
           slots.push({
             title: 'Apericena',
             description: 'Apriremo se c`è chi è interessato.',
             start: setHours(day, 17),
-            end: setHours(day, 20)
+            end: setHours(day, 20),
+            status: this.status[Math.floor(Math.random() * this.status.length)]
           })
         }
 
@@ -105,7 +112,8 @@ export default {
           title: 'Serata in compagnia',
           description: 'Bevande forti dopo cena.',
           start: setMinutes(setHours(day, 21), 30),
-          end: setHours(day, 24)
+          end: setHours(day, 24),
+          status: this.status[Math.floor(Math.random() * this.status.length)]
         })
 
         return {
@@ -116,6 +124,7 @@ export default {
     }
   },
   async created () {
+    this.events = [...this.initialEvents]
     // get events
     const {
       data: events,
@@ -148,7 +157,21 @@ export default {
       const index = closestIndexTo(ev.start, this.days)
       this.$refs.days.scrollToIndex(index)
     },
+    getNextStatus ({ status }) {
+      switch (status) {
+        case 'alert':
+          return 'warning'
+        case 'warning':
+          return 'alert'
+        case 'info':
+          return ''
+        case 'empty':
+          return Math.random() > 0.5 ? 'alert' : 'info'
+      }
+      return 'info'
+    },
     handleEventClick (ev) {
+      ev.status = this.getNextStatus(ev)
       this.addUserToEvent(ev)
     },
     async addUserToEvent (ev) {

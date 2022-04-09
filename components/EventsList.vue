@@ -8,6 +8,7 @@
         :event="ev"
         :index="i"
         :observer="observer"
+        :class="`event--${ev.status}`"
         @click="$emit('click', ev)"
       />
       <li class="event event--alert">
