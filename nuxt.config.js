@@ -64,7 +64,7 @@ export default {
     redirect: {
       login: '/signin', // if login is required
       logout: '/signin', //  if after logout, current route is protected
-      callback: '/signin', // identity provider after login
+      callback: '/', // identity provider after login
       home: '/home' // after login
     }
   },

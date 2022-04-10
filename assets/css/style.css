@@ -84,6 +84,7 @@ body {
 .home {
   padding: 0 16px;
   position: relative;
+  background-image: url(~/assets/img/pattern-seamless-lemon.svg);
 }
 
 .hero {
@@ -239,7 +240,16 @@ body {
   padding: 17px 72px;
   background-image: url(~/assets/img/google-icon.png);
   background-repeat: no-repeat;
-  background-position: left center;
+  background-position: left 0px center;
+}
+
+.btn-fb {
+  color: #0a52bd;
+  padding: 17px 72px;
+  background-image: url(~/assets/img/fb.svg);
+  background-repeat: no-repeat;
+  background-position: left 20px center;
+  background-size: 36px;
 }
 
 .divider {
@@ -376,11 +386,16 @@ body {
   font-weight: 500;
   width: 40px;
   height: 60px;
+  flex-shrink: 0;
   padding: 6px 8px;
   font-size: 12px;
   line-height: 18px;
   text-align: center;
   scroll-snap-align: start;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .days-item.with-event::after {
@@ -390,7 +405,7 @@ body {
   height: 4px;
   border-radius: 50%;
   background:  var(--primary);
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .days-item.active-day {

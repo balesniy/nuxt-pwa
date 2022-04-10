@@ -24,7 +24,7 @@
     <main>
       <div class="drawer">
         <input id="my-drawer" v-model="sidebarVisible" type="checkbox" class="drawer-toggle">
-        <div class="drawer-content home grid-bg">
+        <div class="drawer-content home">
           <DaysList ref="days" v-model="selectedDay" :days="days" />
           <EventsList
             v-model="selectedDay"
@@ -55,7 +55,6 @@ import { it } from 'date-fns/locale'
 
 export default {
   name: 'HomePage',
-  auth: false, // FIXME dev only
   data () {
     return {
       sidebarVisible: false,

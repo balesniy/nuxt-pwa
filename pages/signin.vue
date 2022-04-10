@@ -25,6 +25,9 @@
       <button type="button" class="btn btn-full btn-google" @click="signInWithGoogle">
         Accedi con google
       </button>
+      <!-- <button type="button" class="btn btn-full btn-fb" @click="signInWithFb">
+        Accedi con facebook
+      </button> -->
       <nuxt-link class="btn btn-full" to="/signup">
         Registrati
       </nuxt-link>
@@ -48,8 +51,14 @@ export default {
   },
   methods: {
     async signInWithGoogle () {
-      await this.$supabase.auth.signIn({
+      const { error } = await this.$supabase.auth.signIn({
         provider: 'google'
+      }) // this.$auth.options.redirect.callback
+      if (error) { throw error }
+    },
+    async signInWithFb () {
+      await this.$supabase.auth.signIn({
+        provider: 'facebook'
       }) // this.$auth.options.redirect.callback
     },
     async userLogin () {
